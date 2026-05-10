@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata">
+    <canEscalate>false</canEscalate>
+    <description>Retrieve project status, briefing, owner, dates, risks and last activity for any project</description>
+    <developerName>SC_Topic_ProjectSummary</developerName>
+    <language>en_US</language>
+    <localDeveloperName>SC_Topic_ProjectSummary</localDeveloperName>
+    <masterLabel>Project Summary</masterLabel>
+    <pluginType>Topic</pluginType>
+    <scope>Use when the user asks about a project status, summary, briefing, or wants to know what is on their plate.</scope>
+</GenAiPlugin>

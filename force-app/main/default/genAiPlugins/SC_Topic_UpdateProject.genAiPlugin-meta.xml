@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata">
+    <canEscalate>false</canEscalate>
+    <description>Update a project start or end date, or log a note or activity on a project</description>
+    <developerName>SC_Topic_UpdateProject</developerName>
+    <language>en_US</language>
+    <localDeveloperName>SC_Topic_UpdateProject</localDeveloperName>
+    <masterLabel>Update Project</masterLabel>
+    <pluginType>Topic</pluginType>
+    <scope>Use when the user wants to change a project date, push a deadline, move a timeline, or log a note, comment, or activity update on a project.</scope>
+</GenAiPlugin>
