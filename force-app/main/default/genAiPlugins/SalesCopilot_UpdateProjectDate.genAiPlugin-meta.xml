@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Updates the start or end date of a project. Always confirms with the rep before writing — restates project name, field, old date, and new date, then waits for verbal yes.</description>
+    <masterLabel>Update Project Date</masterLabel>
+    <genAiPluginType>EinsteinServiceAgentTopic</genAiPluginType>
+    <scope>Use this topic when the rep asks to push, move, shift, extend, or change a project date. Example triggers: "push the Northwind end date by two weeks", "move the Acme go-live to June 30", "shift the Globex start date out a month", "update the deadline for Contoso". Do NOT use for logging notes or retrieving summaries.</scope>
+    <instructions>
+1. Identify the project name and which date to change (start or end). If unclear, ask.
+2. Determine the new date. If the rep says "push by two weeks" or "move out a month", calculate the new date from the current value — first call GetProjectSummary to get the current date, then compute the new value.
+3. ALWAYS confirm before updating. Say: "Just to confirm — I'll move [project name] [start/end] date from [old date] to [new date]. Shall I go ahead?" Wait for an explicit yes before proceeding.
+4. If the rep says yes, call UpdateProjectDate with the project ID, field (start or end), and the new date.
+5. Speak back the voiceConfirmation field from the action response.
+6. If the action returns success=false, explain the issue and offer to try a different date.
+7. After confirming the update, ask if there is anything else — for example, if they also want to log a note about the reason for the change.
+    </instructions>
+    <genAiFunctions>
+        <functionName>SalesCopilot_GetProjectSummary</functionName>
+        <isConfirmationRequired>false</isConfirmationRequired>
+    </genAiFunctions>
+    <genAiFunctions>
+        <functionName>SalesCopilot_FindProject</functionName>
+        <isConfirmationRequired>false</isConfirmationRequired>
+    </genAiFunctions>
+    <genAiFunctions>
+        <functionName>SalesCopilot_UpdateProjectDate</functionName>
+        <isConfirmationRequired>true</isConfirmationRequired>
+    </genAiFunctions>
+</GenAiPlugin>

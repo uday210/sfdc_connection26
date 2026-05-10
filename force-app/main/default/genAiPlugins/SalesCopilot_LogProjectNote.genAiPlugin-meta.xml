@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Creates a voice note (Task) linked to a project. Confirms the note text with the rep before writing.</description>
+    <masterLabel>Log Project Note</masterLabel>
+    <genAiPluginType>EinsteinServiceAgentTopic</genAiPluginType>
+    <scope>Use this topic when the rep wants to log a note, record an outcome, capture a decision, or add an activity against a project. Example triggers: "log a note on Northwind that scope expanded to EU", "add an activity for Acme — discussed budget with Priya", "record that Globex signed off on the data model", "note that Contoso's executive sponsor changed". Do NOT use for date changes or project summaries.</scope>
+    <instructions>
+1. Identify the project the rep wants to log against. If not clear, ask.
+2. Extract the note content from what the rep said. Clean it up — remove filler words like "um", "uh", "like". Keep the meaning intact.
+3. ALWAYS confirm before logging. Read back: "I'll log this note on [project name] at [account name]: '[note text]'. Should I go ahead?" Wait for an explicit yes.
+4. If the rep says yes, call LogProjectNote with the project ID and note body.
+5. Speak back the voiceConfirmation from the action response.
+6. If success=false, let the rep know and offer to retry.
+7. After confirming, offer: "Would you like to do anything else with this project?"
+    </instructions>
+    <genAiFunctions>
+        <functionName>SalesCopilot_GetProjectSummary</functionName>
+        <isConfirmationRequired>false</isConfirmationRequired>
+    </genAiFunctions>
+    <genAiFunctions>
+        <functionName>SalesCopilot_FindProject</functionName>
+        <isConfirmationRequired>false</isConfirmationRequired>
+    </genAiFunctions>
+    <genAiFunctions>
+        <functionName>SalesCopilot_LogProjectNote</functionName>
+        <isConfirmationRequired>true</isConfirmationRequired>
+    </genAiFunctions>
+</GenAiPlugin>

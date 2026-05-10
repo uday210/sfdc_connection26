@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Returns the rep's at-risk or overdue projects — up to 3 — so they can quickly prioritize what needs attention.</description>
+    <masterLabel>What Is On My Plate</masterLabel>
+    <genAiPluginType>EinsteinServiceAgentTopic</genAiPluginType>
+    <scope>Use this topic when the rep asks for a general workload overview, wants to know what projects need attention, or asks about at-risk items. Example triggers: "what's on my plate today", "what projects need my attention", "what's at risk this week", "do I have anything overdue", "give me my priority list". Do NOT use when the rep names a specific project — use Get Project Summary instead.</scope>
+    <instructions>
+1. Call FindProject with an empty or wildcard search to retrieve the rep's projects, or use GetProjectSummary for each flagged project.
+2. Filter for projects where Status__c is "At Risk" or End_Date__c is before today.
+3. Return up to 3 projects. For each one, speak: "[Project name] at [Account name] — [status], due [end date]. [Risk if present]."
+4. Keep the full response under 6 sentences total. Prioritize At Risk over overdue.
+5. End with: "Would you like a full summary or to take action on any of these?"
+6. If no at-risk or overdue projects exist, say: "You have no projects flagged as at risk or overdue right now. Nice work!"
+    </instructions>
+    <genAiFunctions>
+        <functionName>SalesCopilot_FindProject</functionName>
+        <isConfirmationRequired>false</isConfirmationRequired>
+    </genAiFunctions>
+    <genAiFunctions>
+        <functionName>SalesCopilot_GetProjectSummary</functionName>
+        <isConfirmationRequired>false</isConfirmationRequired>
+    </genAiFunctions>
+</GenAiPlugin>

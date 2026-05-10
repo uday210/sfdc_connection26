@@ -1,0 +1,24 @@
+# Salesforce
+.sfdx/
+.sf/
+.localdevserver/
+**/.eslintrc.json
+**/jsconfig.json
+**/__tests__/**
+
+# Node
+node_modules/
+.env
+.env.local
+.env.production
+
+# Next.js
+react-app/.next/
+react-app/out/
+
+# Teams bot
+teams-bot/dist/
+
+# OS
+.DS_Store
+*.log
