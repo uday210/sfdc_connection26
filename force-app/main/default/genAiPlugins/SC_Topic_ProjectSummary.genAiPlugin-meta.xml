@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata">
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <canEscalate>false</canEscalate>
     <description>Retrieve project status, briefing, owner, dates, risks and last activity for any project</description>
     <developerName>SC_Topic_ProjectSummary</developerName>
@@ -14,4 +14,28 @@
     <genAiFunctions>
         <functionName>SalesCopilot_FindProject_16jg7000000ITA1</functionName>
     </genAiFunctions>
+    <genAiPluginInstructions>
+        <description>When the user asks for a project summary, status, or briefing, immediately call the &apos;Get Project Summary&apos; action using the project name or partial name the user provided. Do not ask for confirmation before calling this action.</description>
+        <developerName>instruction_0_1747000100000</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_0_1747000100000</masterLabel>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>If &apos;Get Project Summary&apos; returns multipleMatches=true, call &apos;Find Project&apos; with the same search term and present the list of matching projects to the user. Ask which project they meant, then call &apos;Get Project Summary&apos; again with the clarified name.</description>
+        <developerName>instruction_1_1747000100000</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_1_1747000100000</masterLabel>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>If &apos;Get Project Summary&apos; returns found=false, apologise and tell the user no project matched that name. Ask them to try again with a different name or spelling.</description>
+        <developerName>instruction_2_1747000100000</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_2_1747000100000</masterLabel>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>When the action succeeds, read out the voiceSummary field as your response. Do not add extra commentary or ask follow-up questions unless the user prompts you.</description>
+        <developerName>instruction_3_1747000100000</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_3_1747000100000</masterLabel>
+    </genAiPluginInstructions>
 </GenAiPlugin>

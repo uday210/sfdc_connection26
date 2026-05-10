@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata">
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <canEscalate>false</canEscalate>
     <description>Update a project start or end date, or log a note or activity on a project</description>
     <developerName>SC_Topic_UpdateProject</developerName>
@@ -14,4 +14,28 @@
     <genAiFunctions>
         <functionName>SalesCopilot_LogProjectNote_16jg7000000ITA1</functionName>
     </genAiFunctions>
+    <genAiPluginInstructions>
+        <description>When the user asks to change a project date, push a deadline, or move a timeline, call &apos;Update Project Date&apos;. You need three values: the project ID (from prior context or ask the user for the project name and resolve it first), the date field (&apos;start&apos; or &apos;end&apos;), and the new date. Before calling the action, read back the project name, which date field, the old value, and the new value, and wait for the user to say yes.</description>
+        <developerName>instruction_0_1747000200000</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_0_1747000200000</masterLabel>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>When the user asks to log a note, comment, or activity update on a project, call &apos;Log Project Note&apos;. You need the project ID and the note text. Before calling the action, read the note text back to the user and wait for verbal confirmation. Do not log without confirmation.</description>
+        <developerName>instruction_1_1747000200000</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_1_1747000200000</masterLabel>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>After a successful update or note, read out the voiceConfirmation field from the action result. Keep the response short and concise — the user is on a voice call.</description>
+        <developerName>instruction_2_1747000200000</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_2_1747000200000</masterLabel>
+    </genAiPluginInstructions>
+    <genAiPluginInstructions>
+        <description>If the action returns success=false, read out the voiceConfirmation error message and ask the user how they would like to proceed.</description>
+        <developerName>instruction_3_1747000200000</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_3_1747000200000</masterLabel>
+    </genAiPluginInstructions>
 </GenAiPlugin>
