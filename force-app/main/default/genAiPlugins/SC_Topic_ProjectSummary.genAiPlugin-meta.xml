@@ -9,9 +9,9 @@
     <pluginType>Topic</pluginType>
     <scope>Use when the user asks about a project status, summary, briefing, or wants to know what is on their plate.</scope>
     <genAiFunctions>
-        <functionName>SalesCopilot_GetProjectSummary</functionName>
+        <functionName>SalesCopilot_GetProjectSummary_16jg7000000ITA1</functionName>
     </genAiFunctions>
     <genAiFunctions>
-        <functionName>SalesCopilot_FindProject</functionName>
+        <functionName>SalesCopilot_FindProject_16jg7000000ITA1</functionName>
     </genAiFunctions>
 </GenAiPlugin>

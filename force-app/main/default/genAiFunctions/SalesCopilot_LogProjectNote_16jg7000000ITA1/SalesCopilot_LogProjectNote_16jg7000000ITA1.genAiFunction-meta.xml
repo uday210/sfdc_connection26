@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiFunction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Creates a Task (voice note) linked to a project. Always confirm the note text with the rep before calling — read it back and wait for verbal yes.</description>
+    <invocationTarget>SalesCopilot_LogProjectNote</invocationTarget>
+    <invocationTargetType>apex</invocationTargetType>
+    <isConfirmationRequired>true</isConfirmationRequired>
+    <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+    <masterLabel>Log Project Note</masterLabel>
+    <progressIndicatorMessage>Logging your note...</progressIndicatorMessage>
+</GenAiFunction>

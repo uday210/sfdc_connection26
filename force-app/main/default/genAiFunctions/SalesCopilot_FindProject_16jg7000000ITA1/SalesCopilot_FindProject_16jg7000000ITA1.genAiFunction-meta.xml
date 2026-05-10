@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiFunction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Disambiguation helper. Returns up to 3 project matches for a search term, with project name, account name, and status. Use when the rep names a project and Get Project Summary returns multiple matches.</description>
+    <invocationTarget>SalesCopilot_FindProject</invocationTarget>
+    <invocationTargetType>apex</invocationTargetType>
+    <isConfirmationRequired>false</isConfirmationRequired>
+    <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+    <masterLabel>Find Project</masterLabel>
+    <progressIndicatorMessage>Searching for matching projects...</progressIndicatorMessage>
+</GenAiFunction>
