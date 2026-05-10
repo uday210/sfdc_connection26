@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiFunction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Retrieves a voice-friendly summary of a project by name or partial name. Returns status, dates, owner, account details, last activity, and any open risks.</description>
+    <invocationTarget>SalesCopilot_GetProjectSummary</invocationTarget>
+    <invocationTargetType>apex</invocationTargetType>
+    <isConfirmationRequired>false</isConfirmationRequired>
+    <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+    <masterLabel>Get Project Summary</masterLabel>
+    <progressIndicatorMessage>Looking up project details...</progressIndicatorMessage>
+</GenAiFunction>

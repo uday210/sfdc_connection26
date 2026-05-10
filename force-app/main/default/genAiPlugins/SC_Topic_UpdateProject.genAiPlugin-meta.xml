@@ -8,4 +8,10 @@
     <masterLabel>Update Project</masterLabel>
     <pluginType>Topic</pluginType>
     <scope>Use when the user wants to change a project date, push a deadline, move a timeline, or log a note, comment, or activity update on a project.</scope>
+    <genAiFunctions>
+        <functionName>SalesCopilot_UpdateProjectDate</functionName>
+    </genAiFunctions>
+    <genAiFunctions>
+        <functionName>SalesCopilot_LogProjectNote</functionName>
+    </genAiFunctions>
 </GenAiPlugin>

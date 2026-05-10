@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiFunction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Updates the start or end date of a project. Always confirm with the rep before calling — restate project name, field, old value, and new value, then wait for verbal yes.</description>
+    <invocationTarget>SalesCopilot_UpdateProjectDate</invocationTarget>
+    <invocationTargetType>apex</invocationTargetType>
+    <isConfirmationRequired>true</isConfirmationRequired>
+    <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+    <masterLabel>Update Project Date</masterLabel>
+    <progressIndicatorMessage>Updating project date...</progressIndicatorMessage>
+</GenAiFunction>
