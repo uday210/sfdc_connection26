@@ -1,22 +1,44 @@
 import jsforce from 'jsforce'
 
-let _conn: jsforce.Connection | null = null
+interface TokenCache {
+  conn: jsforce.Connection
+  expiresAt: number
+}
+
+let _cache: TokenCache | null = null
+
+async function fetchToken(): Promise<{ accessToken: string; instanceUrl: string }> {
+  const res = await fetch(
+    `${process.env.SF_LOGIN_URL ?? 'https://login.salesforce.com'}/services/oauth2/token`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        grant_type:    'client_credentials',
+        client_id:     process.env.SF_CLIENT_ID!,
+        client_secret: process.env.SF_CLIENT_SECRET!,
+      }),
+    }
+  )
+  if (!res.ok) {
+    const err = await res.text()
+    throw new Error(`Salesforce OAuth failed: ${err}`)
+  }
+  const json = await res.json() as { access_token: string; instance_url: string }
+  return { accessToken: json.access_token, instanceUrl: json.instance_url }
+}
 
 export async function getSFConnection(): Promise<jsforce.Connection> {
-  if (_conn && _conn.accessToken) {
-    return _conn
+  // Reuse cached connection if it hasn't expired (refresh 5 min before expiry)
+  if (_cache && Date.now() < _cache.expiresAt) {
+    return _cache.conn
   }
 
-  const conn = new jsforce.Connection({
-    loginUrl: process.env.SF_LOGIN_URL ?? 'https://login.salesforce.com',
-  })
+  const { accessToken, instanceUrl } = await fetchToken()
+  const conn = new jsforce.Connection({ instanceUrl, accessToken })
 
-  await conn.login(
-    process.env.SF_USERNAME!,
-    process.env.SF_PASSWORD! + (process.env.SF_SECURITY_TOKEN ?? '')
-  )
-
-  _conn = conn
+  // Client credentials tokens last 2 hours by default; cache for 110 min
+  _cache = { conn, expiresAt: Date.now() + 110 * 60 * 1000 }
   return conn
 }
 

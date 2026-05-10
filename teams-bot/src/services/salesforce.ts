@@ -1,12 +1,27 @@
 import jsforce from 'jsforce'
 
-let _conn: jsforce.Connection | null = null
+interface TokenCache { conn: jsforce.Connection; expiresAt: number }
+let _cache: TokenCache | null = null
 
 async function getConn(): Promise<jsforce.Connection> {
-  if (_conn) return _conn
-  const conn = new jsforce.Connection({ loginUrl: process.env.SF_LOGIN_URL ?? 'https://login.salesforce.com' })
-  await conn.login(process.env.SF_USERNAME!, process.env.SF_PASSWORD! + (process.env.SF_SECURITY_TOKEN ?? ''))
-  _conn = conn
+  if (_cache && Date.now() < _cache.expiresAt) return _cache.conn
+
+  const res = await fetch(
+    `${process.env.SF_LOGIN_URL ?? 'https://login.salesforce.com'}/services/oauth2/token`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        grant_type:    'client_credentials',
+        client_id:     process.env.SF_CLIENT_ID!,
+        client_secret: process.env.SF_CLIENT_SECRET!,
+      }),
+    }
+  )
+  if (!res.ok) throw new Error(`Salesforce OAuth failed: ${await res.text()}`)
+  const { access_token, instance_url } = await res.json() as { access_token: string; instance_url: string }
+  const conn = new jsforce.Connection({ instanceUrl: instance_url, accessToken: access_token })
+  _cache = { conn, expiresAt: Date.now() + 110 * 60 * 1000 }
   return conn
 }
 
