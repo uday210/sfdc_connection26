@@ -1,0 +1,11 @@
+[phases.setup]
+nixPkgs = ["nodejs_20"]
+
+[phases.install]
+cmds = ["cd react-app && npm install"]
+
+[phases.build]
+cmds = ["cd react-app && npm run build"]
+
+[start]
+cmd = "cd react-app && npm start"
