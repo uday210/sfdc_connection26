@@ -1,0 +1,29 @@
+{
+  "required": ["projectId", "dateField", "newDate"],
+  "unevaluatedProperties": false,
+  "properties": {
+    "projectId": {
+      "title": "Project ID",
+      "description": "Salesforce ID of the project to update",
+      "lightning:type": "lightning__textType",
+      "lightning:isPII": false,
+      "copilotAction:isUserInput": true
+    },
+    "dateField": {
+      "title": "Date Field",
+      "description": "Which date to update: start or end",
+      "lightning:type": "lightning__textType",
+      "lightning:isPII": false,
+      "copilotAction:isUserInput": true
+    },
+    "newDate": {
+      "title": "New Date",
+      "description": "The new date value in YYYY-MM-DD format",
+      "lightning:type": "lightning__dateType",
+      "lightning:isPII": false,
+      "copilotAction:isUserInput": true
+    }
+  },
+  "lightning:type": "lightning__objectType",
+  "lightning:textIndexed": true
+}

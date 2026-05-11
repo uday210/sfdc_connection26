@@ -19,23 +19,27 @@
         <developerName>instruction_0_1747000100000</developerName>
         <language xsi:nil="true"/>
         <masterLabel>instruction_0_1747000100000</masterLabel>
+        <sortOrder>0</sortOrder>
     </genAiPluginInstructions>
     <genAiPluginInstructions>
         <description>If &apos;Get Project Summary&apos; returns multipleMatches=true, call &apos;Find Project&apos; with the same search term and present the list of matching projects to the user. Ask which project they meant, then call &apos;Get Project Summary&apos; again with the clarified name.</description>
         <developerName>instruction_1_1747000100000</developerName>
         <language xsi:nil="true"/>
         <masterLabel>instruction_1_1747000100000</masterLabel>
+        <sortOrder>1</sortOrder>
     </genAiPluginInstructions>
     <genAiPluginInstructions>
         <description>If &apos;Get Project Summary&apos; returns found=false, apologise and tell the user no project matched that name. Ask them to try again with a different name or spelling.</description>
         <developerName>instruction_2_1747000100000</developerName>
         <language xsi:nil="true"/>
         <masterLabel>instruction_2_1747000100000</masterLabel>
+        <sortOrder>2</sortOrder>
     </genAiPluginInstructions>
     <genAiPluginInstructions>
         <description>When the action succeeds, read out the voiceSummary field as your response. Do not add extra commentary or ask follow-up questions unless the user prompts you.</description>
         <developerName>instruction_3_1747000100000</developerName>
         <language xsi:nil="true"/>
         <masterLabel>instruction_3_1747000100000</masterLabel>
+        <sortOrder>3</sortOrder>
     </genAiPluginInstructions>
 </GenAiPlugin>

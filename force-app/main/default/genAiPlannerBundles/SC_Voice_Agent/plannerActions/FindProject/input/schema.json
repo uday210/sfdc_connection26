@@ -1,0 +1,15 @@
+{
+  "required": ["searchTerm"],
+  "unevaluatedProperties": false,
+  "properties": {
+    "searchTerm": {
+      "title": "Search Term",
+      "description": "The partial project name to search for",
+      "lightning:type": "lightning__textType",
+      "lightning:isPII": false,
+      "copilotAction:isUserInput": true
+    }
+  },
+  "lightning:type": "lightning__objectType",
+  "lightning:textIndexed": true
+}

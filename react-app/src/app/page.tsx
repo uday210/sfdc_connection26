@@ -1,85 +1,130 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { AlertTriangle, CheckCircle2, Clock, Building2 } from 'lucide-react'
-import { ProjectCard } from '@/components/ProjectCard'
-import { ChatInterface } from '@/components/ChatInterface'
+import { useEffect, useState, useCallback } from 'react'
+import { AccountSidebar } from '@/components/AccountSidebar'
+import { Account360Panel } from '@/components/Account360Panel'
+import { AICopilotPanel } from '@/components/AICopilotPanel'
+import { TopBar } from '@/components/TopBar'
 
-export default function DashboardPage() {
-  const [projects, setProjects] = useState<Record<string, unknown>[]>([])
+export type Project = {
+  Id: string
+  Name: string
+  Status__c: string
+  Start_Date__c: string
+  End_Date__c: string
+  Description__c: string
+  Risks__c: string
+  Owner: { Name: string }
+  Account__r: {
+    Id: string
+    Name: string
+    Industry: string
+    Type: string
+    Phone: string
+    Website: string
+    BillingCity: string
+    BillingState: string
+    AnnualRevenue: number
+    NumberOfEmployees: number
+  }
+}
+
+export type Account = {
+  id: string
+  name: string
+  industry: string
+  projects: Project[]
+  healthScore: number
+  healthLabel: 'Healthy' | 'Watch' | 'At Risk'
+}
+
+function computeHealth(projects: Project[]): { score: number; label: Account['healthLabel'] } {
+  if (!projects.length) return { score: 50, label: 'Watch' }
+  let score = 100
+  for (const p of projects) {
+    if (p.Status__c === 'At Risk') score -= 30
+    if (p.Risks__c) score -= 15
+    if (p.Status__c === 'On Hold') score -= 10
+    if (p.Status__c === 'Complete') score += 5
+  }
+  score = Math.max(0, Math.min(100, score))
+  const label: Account['healthLabel'] = score >= 70 ? 'Healthy' : score >= 40 ? 'Watch' : 'At Risk'
+  return { score, label }
+}
+
+export default function CommandCenter() {
+  const [projects, setProjects] = useState<Project[]>([])
+  const [accounts, setAccounts] = useState<Account[]>([])
+  const [selectedAccountId, setSelectedAccountId] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
+  const refresh = useCallback(() => {
     fetch('/api/sf/projects')
       .then(r => r.json())
-      .then(d => { setProjects(d.projects ?? []); setLoading(false) })
+      .then(d => {
+        const raw: Project[] = d.projects ?? []
+        setProjects(raw)
+
+        const byAccount = raw.reduce<Record<string, Project[]>>((acc, p) => {
+          const id = p.Account__r?.Id ?? 'unknown'
+          ;(acc[id] ??= []).push(p)
+          return acc
+        }, {})
+
+        const accts: Account[] = Object.entries(byAccount).map(([id, projs]) => {
+          const { score, label } = computeHealth(projs)
+          return {
+            id,
+            name: projs[0].Account__r?.Name ?? 'Unknown',
+            industry: projs[0].Account__r?.Industry ?? '',
+            projects: projs,
+            healthScore: score,
+            healthLabel: label,
+          }
+        }).sort((a, b) => a.healthScore - b.healthScore)
+
+        setAccounts(accts)
+        if (!selectedAccountId && accts.length) {
+          setSelectedAccountId(accts[0].id)
+        }
+        setLoading(false)
+      })
       .catch(() => setLoading(false))
-  }, [])
+  }, [selectedAccountId])
 
-  const total    = projects.length
-  const active   = projects.filter(p => p['Status__c'] === 'In Progress' || p['Status__c'] === 'Implementation').length
-  const atRisk   = projects.filter(p => p['Status__c'] === 'At Risk' || p['Risks__c']).length
-  const accounts = new Set(projects.map(p => (p['Account__r'] as Record<string, unknown>)?.['Name'])).size
+  useEffect(() => { refresh() }, [])
 
-  // Group by account
-  const byAccount = projects.reduce<Record<string, Record<string, unknown>[]>>((acc, p) => {
-    const name = ((p['Account__r'] as Record<string, unknown>)?.['Name'] as string) ?? 'Unknown'
-    ;(acc[name] ??= []).push(p)
-    return acc
-  }, {})
+  const selectedAccount = accounts.find(a => a.id === selectedAccountId) ?? null
+
+  const stats = {
+    pipeline: projects.length,
+    atRisk: projects.filter(p => p.Status__c === 'At Risk' || p.Risks__c).length,
+    active: projects.filter(p => ['In Progress', 'Implementation'].includes(p.Status__c)).length,
+    accounts: accounts.length,
+  }
 
   return (
-    <div className="max-w-[1400px] mx-auto space-y-6">
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', background: 'var(--bg-base)' }}>
+      <TopBar stats={stats} loading={loading} />
 
-      {/* Stats strip */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        {[
-          { label: 'Total Projects', value: total,   icon: <Clock size={18} className="text-blue-500" /> },
-          { label: 'Active',         value: active,  icon: <CheckCircle2 size={18} className="text-green-500" /> },
-          { label: 'At Risk',        value: atRisk,  icon: <AlertTriangle size={18} className="text-red-500" /> },
-          { label: 'Accounts',       value: accounts,icon: <Building2 size={18} className="text-indigo-500" /> },
-        ].map(s => (
-          <div key={s.label} className="bg-white rounded-xl border border-gray-200 p-4 flex items-center gap-3">
-            {s.icon}
-            <div>
-              <p className="text-2xl font-bold text-gray-900">{loading ? '—' : s.value}</p>
-              <p className="text-xs text-gray-500">{s.label}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+        {/* Left: Account list */}
+        <AccountSidebar
+          accounts={accounts}
+          selectedId={selectedAccountId}
+          onSelect={setSelectedAccountId}
+          loading={loading}
+        />
 
-      {/* Main layout: project grid + chat */}
-      <div className="flex gap-6 items-start">
+        {/* Center: Account 360 */}
+        <Account360Panel
+          account={selectedAccount}
+          loading={loading}
+          onRefresh={refresh}
+        />
 
-        {/* Projects */}
-        <div className="flex-1 min-w-0 space-y-6">
-          {loading && (
-            <p className="text-sm text-gray-400 text-center py-12">Loading projects…</p>
-          )}
-          {!loading && projects.length === 0 && (
-            <p className="text-sm text-gray-400 text-center py-12">No projects found. Check your Salesforce connection.</p>
-          )}
-          {!loading && Object.entries(byAccount).map(([accountName, acctProjects]) => (
-            <div key={accountName}>
-              <div className="flex items-center gap-2 mb-3">
-                <Building2 size={14} className="text-gray-400" />
-                <h2 className="text-sm font-semibold text-gray-600">{accountName}</h2>
-                <span className="text-xs text-gray-400">({acctProjects.length})</span>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                {acctProjects.map(p => (
-                  <ProjectCard key={p['Id'] as string} project={p} />
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Chat sidebar */}
-        <div className="w-[360px] shrink-0 sticky top-[73px] h-[calc(100vh-105px)]">
-          <ChatInterface />
-        </div>
+        {/* Right: AI Copilot */}
+        <AICopilotPanel account={selectedAccount} />
       </div>
     </div>
   )

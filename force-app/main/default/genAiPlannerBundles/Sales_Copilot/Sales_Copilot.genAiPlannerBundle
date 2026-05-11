@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlannerBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>A voice-enabled productivity agent for sales reps to manage their projects hands-free between meetings, in the car, or right after a customer interaction. The agent provides quick verbal summaries of project status, key dates, owner, recent activities, and open risks, and updates project records on request — including shifting start or end dates, logging notes, and capturing follow-ups. It identifies the calling user via Salesforce context and only acts on projects they own or are assigned to. All write operations require explicit verbal confirmation before committing, and every conversation is logged for audit. Designed for use via Agentforce Voice Preview and PSTN telephony.</description>
+    <localActionLinks>
+        <genAiFunctionName>AnswerQuestionsWithKnowledge_16jg7000000ITA1</genAiFunctionName>
+    </localActionLinks>
+    <localTopicLinks>
+        <genAiPluginName>SC_Topic_ProjectSummary_16jg7000000ITA1</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>SC_Topic_UpdateProject_16jg7000000ITA1</genAiPluginName>
+    </localTopicLinks>
+    <localTopics>
+        <fullName>SC_Topic_ProjectSummary_16jg7000000ITA1</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Retrieve project status, briefing, owner, dates, risks and last activity for any project</description>
+        <developerName>SC_Topic_ProjectSummary_16jg7000000ITA1</developerName>
+        <language>en_US</language>
+        <localDeveloperName>SC_Topic_ProjectSummary</localDeveloperName>
+        <masterLabel>Project Summary</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Use when the user asks about a project status, summary, briefing, or wants to know what is on their plate.</scope>
+        <source>SC_Topic_ProjectSummary</source>
+    </localTopics>
+    <localTopics>
+        <fullName>SC_Topic_UpdateProject_16jg7000000ITA1</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Update a project start or end date, or log a note or activity on a project</description>
+        <developerName>SC_Topic_UpdateProject_16jg7000000ITA1</developerName>
+        <language>en_US</language>
+        <localDeveloperName>SC_Topic_UpdateProject</localDeveloperName>
+        <masterLabel>Update Project</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Use when the user wants to change a project date, push a deadline, move a timeline, or log a note, comment, or activity update on a project.</scope>
+        <source>SC_Topic_UpdateProject</source>
+    </localTopics>
+    <masterLabel>Sales Copilot</masterLabel>
+    <plannerActions>
+        <fullName>AnswerQuestionsWithKnowledge_16jg7000000ITA1</fullName>
+        <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+        <developerName>AnswerQuestionsWithKnowledge_16jg7000000ITA1</developerName>
+        <invocationTarget>streamKnowledgeSearch</invocationTarget>
+        <invocationTargetType>standardInvocableAction</invocationTargetType>
+        <isConfirmationRequired>false</isConfirmationRequired>
+        <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+        <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+        <masterLabel>Answer Questions with Knowledge</masterLabel>
+        <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+        <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+    </plannerActions>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__CustomerWebClient</surface>
+        <surfaceType>CustomerWebClient</surfaceType>
+    </plannerSurfaces>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__Messaging</surface>
+        <surfaceType>Messaging</surfaceType>
+    </plannerSurfaces>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <outboundRouteConfigs>
+            <escalationMessage>We are transferring this call to an agent</escalationMessage>
+            <outboundRouteName>Escalate_Call_To_rep</outboundRouteName>
+            <outboundRouteType>OmniChannelFlow</outboundRouteType>
+        </outboundRouteConfigs>
+        <surface>SurfaceAction__Telephony</surface>
+        <surfaceType>Telephony</surfaceType>
+    </plannerSurfaces>
+    <plannerType>Atlas__VoiceAgent</plannerType>
+    <ruleExpressions>
+        <conditions>
+            <leftOperand>isVerified</leftOperand>
+            <leftOperandType>Variable</leftOperandType>
+            <operator>equal</operator>
+            <rightOperandValue>true</rightOperandValue>
+        </conditions>
+        <expression>Verified_User</expression>
+        <expressionLabel>Verified User</expressionLabel>
+        <expressionName>Verified_User</expressionName>
+        <expressionType>sel</expressionType>
+    </ruleExpressions>
+    <voiceDefinition>
+        <developerName>Sales_Copilot</developerName>
+        <inboundFillerWordsBool>false</inboundFillerWordsBool>
+        <inboundKeywords>{&quot;keyterm&quot;:[]}</inboundKeywords>
+        <inboundModel>sfdc_ai__Default_Nova_2_PhoneCall</inboundModel>
+        <label>Sales Copilot</label>
+        <languageCode>en_US</languageCode>
+        <outboundModel>sfdc_ai__Default_Eleven_Flash_V2_5</outboundModel>
+        <outboundSimilarity>0.75</outboundSimilarity>
+        <outboundSpeedNum>1.0</outboundSpeedNum>
+        <outboundStability>0.7</outboundStability>
+        <outboundVoice>Adalina</outboundVoice>
+        <pronunciationDict>{&quot;pronunciations&quot;:[]}</pronunciationDict>
+        <voiceIdentifier>i2SoWWnAm3qCyr53Jenw</voiceIdentifier>
+    </voiceDefinition>
+</GenAiPlannerBundle>

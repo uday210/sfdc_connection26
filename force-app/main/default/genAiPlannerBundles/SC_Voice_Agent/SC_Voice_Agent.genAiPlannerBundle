@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlannerBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Voice-enabled sales copilot. Gives reps hands-free project summaries and lets them push dates or log notes by speaking. All writes require verbal confirmation.</description>
+    <localActionLinks>
+        <genAiFunctionName>GetProjectSummary</genAiFunctionName>
+    </localActionLinks>
+    <localActionLinks>
+        <genAiFunctionName>FindProject</genAiFunctionName>
+    </localActionLinks>
+    <localActionLinks>
+        <genAiFunctionName>UpdateProjectDate</genAiFunctionName>
+    </localActionLinks>
+    <localActionLinks>
+        <genAiFunctionName>LogProjectNote</genAiFunctionName>
+    </localActionLinks>
+    <localTopicLinks>
+        <genAiPluginName>SC_VA_ProjectSummary</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>SC_VA_UpdateProject</genAiPluginName>
+    </localTopicLinks>
+    <localTopics>
+        <fullName>SC_VA_ProjectSummary</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Retrieve project status, briefing, owner, dates, risks and last activity for any project</description>
+        <developerName>SC_VA_ProjectSummary</developerName>
+        <language>en_US</language>
+        <localDeveloperName>SC_VA_ProjectSummary</localDeveloperName>
+        <masterLabel>Project Summary</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Use when the user asks about a project status, summary, briefing, or wants to know what is on their plate.</scope>
+        <source>SC_Topic_ProjectSummary</source>
+    </localTopics>
+    <localTopics>
+        <fullName>SC_VA_UpdateProject</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Update a project start or end date, or log a note or activity on a project</description>
+        <developerName>SC_VA_UpdateProject</developerName>
+        <language>en_US</language>
+        <localDeveloperName>SC_VA_UpdateProject</localDeveloperName>
+        <masterLabel>Update Project</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Use when the user wants to change a project date, push a deadline, move a timeline, or log a note, comment, or activity update on a project.</scope>
+        <source>SC_Topic_UpdateProject</source>
+    </localTopics>
+    <masterLabel>SC Voice Agent</masterLabel>
+    <plannerActions>
+        <fullName>GetProjectSummary</fullName>
+        <description>Retrieves a voice-friendly summary of a project including status, dates, owner, risks, and last activity. Use when the user asks for a project status or briefing.</description>
+        <developerName>GetProjectSummary</developerName>
+        <invocationTarget>SalesCopilot_GetProjectSummary</invocationTarget>
+        <invocationTargetType>apex</invocationTargetType>
+        <isConfirmationRequired>false</isConfirmationRequired>
+        <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+        <localDeveloperName>GetProjectSummary</localDeveloperName>
+        <masterLabel>Get Project Summary</masterLabel>
+        <progressIndicatorMessage>Looking up project details</progressIndicatorMessage>
+    </plannerActions>
+    <plannerActions>
+        <fullName>FindProject</fullName>
+        <description>Searches for projects by partial name and returns top matches. Use when the user project name is ambiguous or multiple projects match.</description>
+        <developerName>FindProject</developerName>
+        <invocationTarget>SalesCopilot_FindProject</invocationTarget>
+        <invocationTargetType>apex</invocationTargetType>
+        <isConfirmationRequired>false</isConfirmationRequired>
+        <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+        <localDeveloperName>FindProject</localDeveloperName>
+        <masterLabel>Find Project</masterLabel>
+        <progressIndicatorMessage>Searching projects</progressIndicatorMessage>
+    </plannerActions>
+    <plannerActions>
+        <fullName>UpdateProjectDate</fullName>
+        <description>Updates the start or end date on a project. Requires verbal confirmation before committing.</description>
+        <developerName>UpdateProjectDate</developerName>
+        <invocationTarget>SalesCopilot_UpdateProjectDate</invocationTarget>
+        <invocationTargetType>apex</invocationTargetType>
+        <isConfirmationRequired>true</isConfirmationRequired>
+        <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+        <localDeveloperName>UpdateProjectDate</localDeveloperName>
+        <masterLabel>Update Project Date</masterLabel>
+        <progressIndicatorMessage>Updating project date</progressIndicatorMessage>
+    </plannerActions>
+    <plannerActions>
+        <fullName>LogProjectNote</fullName>
+        <description>Logs a voice note or activity update on a project as a Task record. Requires verbal confirmation before committing.</description>
+        <developerName>LogProjectNote</developerName>
+        <invocationTarget>SalesCopilot_LogProjectNote</invocationTarget>
+        <invocationTargetType>apex</invocationTargetType>
+        <isConfirmationRequired>true</isConfirmationRequired>
+        <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+        <localDeveloperName>LogProjectNote</localDeveloperName>
+        <masterLabel>Log Project Note</masterLabel>
+        <progressIndicatorMessage>Logging note</progressIndicatorMessage>
+    </plannerActions>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__CustomerWebClient</surface>
+        <surfaceType>CustomerWebClient</surfaceType>
+    </plannerSurfaces>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__Messaging</surface>
+        <surfaceType>Messaging</surfaceType>
+    </plannerSurfaces>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <outboundRouteConfigs>
+            <escalationMessage>We are transferring this call to an agent</escalationMessage>
+            <outboundRouteName>Escalate_Call_To_rep</outboundRouteName>
+            <outboundRouteType>OmniChannelFlow</outboundRouteType>
+        </outboundRouteConfigs>
+        <surface>SurfaceAction__Telephony</surface>
+        <surfaceType>Telephony</surfaceType>
+    </plannerSurfaces>
+    <plannerType>Atlas__VoiceAgent</plannerType>
+    <voiceDefinition>
+        <developerName>SC_Voice_Agent</developerName>
+        <inboundFillerWordsBool>false</inboundFillerWordsBool>
+        <inboundKeywords>{&quot;keyterm&quot;:[]}</inboundKeywords>
+        <inboundModel>sfdc_ai__Default_Nova_2_PhoneCall</inboundModel>
+        <label>SC Voice Agent</label>
+        <languageCode>en_US</languageCode>
+        <outboundModel>sfdc_ai__Default_Eleven_Flash_V2_5</outboundModel>
+        <outboundSimilarity>0.75</outboundSimilarity>
+        <outboundSpeedNum>1.0</outboundSpeedNum>
+        <outboundStability>0.7</outboundStability>
+        <outboundVoice>Adalina</outboundVoice>
+        <pronunciationDict>{&quot;pronunciations&quot;:[]}</pronunciationDict>
+        <voiceIdentifier>i2SoWWnAm3qCyr53Jenw</voiceIdentifier>
+    </voiceDefinition>
+</GenAiPlannerBundle>

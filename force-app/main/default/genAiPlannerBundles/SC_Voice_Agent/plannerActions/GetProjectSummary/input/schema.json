@@ -1,0 +1,15 @@
+{
+  "required": ["projectIdentifier"],
+  "unevaluatedProperties": false,
+  "properties": {
+    "projectIdentifier": {
+      "title": "Project Name or ID",
+      "description": "The project name, partial name, or Salesforce ID to look up",
+      "lightning:type": "lightning__textType",
+      "lightning:isPII": false,
+      "copilotAction:isUserInput": true
+    }
+  },
+  "lightning:type": "lightning__objectType",
+  "lightning:textIndexed": true
+}

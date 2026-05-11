@@ -1,0 +1,71 @@
+{
+  "unevaluatedProperties": false,
+  "properties": {
+    "voiceSummary": {
+      "title": "Voice Summary",
+      "description": "A spoken-friendly summary of the project to read to the user",
+      "lightning:type": "lightning__textType",
+      "lightning:isPII": false,
+      "copilotAction:isDisplayable": true,
+      "copilotAction:isUsedByPlanner": true
+    },
+    "found": {
+      "title": "Found",
+      "description": "Whether a matching project was found",
+      "lightning:type": "lightning__booleanType",
+      "lightning:isPII": false,
+      "copilotAction:isUsedByPlanner": true
+    },
+    "projectId": {
+      "title": "Project ID",
+      "description": "Salesforce ID of the project, for use in follow-up actions",
+      "lightning:type": "lightning__textType",
+      "lightning:isPII": false,
+      "copilotAction:isUsedByPlanner": true
+    },
+    "projectName": {
+      "title": "Project Name",
+      "description": "Name of the project",
+      "lightning:type": "lightning__textType",
+      "lightning:isPII": false,
+      "copilotAction:isUsedByPlanner": true
+    },
+    "status": {
+      "title": "Status",
+      "description": "Current status of the project",
+      "lightning:type": "lightning__textType",
+      "lightning:isPII": false,
+      "copilotAction:isUsedByPlanner": true
+    },
+    "ownerName": {
+      "title": "Owner Name",
+      "description": "Name of the project owner",
+      "lightning:type": "lightning__textType",
+      "lightning:isPII": false,
+      "copilotAction:isUsedByPlanner": true
+    },
+    "endDate": {
+      "title": "End Date",
+      "description": "Project end date",
+      "lightning:type": "lightning__textType",
+      "lightning:isPII": false,
+      "copilotAction:isUsedByPlanner": true
+    },
+    "riskText": {
+      "title": "Risks",
+      "description": "Open risks on the project",
+      "lightning:type": "lightning__textType",
+      "lightning:isPII": false,
+      "copilotAction:isUsedByPlanner": true
+    },
+    "lastActivityText": {
+      "title": "Last Activity",
+      "description": "Description of the most recent activity on this project",
+      "lightning:type": "lightning__textType",
+      "lightning:isPII": false,
+      "copilotAction:isUsedByPlanner": true
+    }
+  },
+  "lightning:type": "lightning__objectType",
+  "lightning:textIndexed": true
+}

@@ -1,0 +1,22 @@
+{
+  "unevaluatedProperties": false,
+  "properties": {
+    "voiceSummary": {
+      "title": "Voice Summary",
+      "description": "A spoken-friendly list of matching projects",
+      "lightning:type": "lightning__textType",
+      "lightning:isPII": false,
+      "copilotAction:isDisplayable": true,
+      "copilotAction:isUsedByPlanner": true
+    },
+    "found": {
+      "title": "Found",
+      "description": "Whether any matching projects were found",
+      "lightning:type": "lightning__booleanType",
+      "lightning:isPII": false,
+      "copilotAction:isUsedByPlanner": true
+    }
+  },
+  "lightning:type": "lightning__objectType",
+  "lightning:textIndexed": true
+}

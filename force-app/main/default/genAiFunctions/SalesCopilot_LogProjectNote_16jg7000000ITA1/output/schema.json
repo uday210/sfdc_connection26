@@ -1,0 +1,29 @@
+{
+  "unevaluatedProperties": false,
+  "properties": {
+    "voiceConfirmation": {
+      "title": "Voice Confirmation",
+      "description": "Voice-friendly confirmation or error message to read to the user",
+      "lightning:type": "lightning__textType",
+      "lightning:isPII": false,
+      "copilotAction:isDisplayable": true,
+      "copilotAction:isUsedByPlanner": true
+    },
+    "success": {
+      "title": "Success",
+      "description": "Whether the note was logged successfully",
+      "lightning:type": "lightning__booleanType",
+      "lightning:isPII": false,
+      "copilotAction:isUsedByPlanner": true
+    },
+    "projectName": {
+      "title": "Project Name",
+      "description": "Name of the project the note was logged on",
+      "lightning:type": "lightning__textType",
+      "lightning:isPII": false,
+      "copilotAction:isUsedByPlanner": true
+    }
+  },
+  "lightning:type": "lightning__objectType",
+  "lightning:textIndexed": true
+}

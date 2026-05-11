@@ -1,0 +1,22 @@
+{
+  "required": ["projectId", "noteBody"],
+  "unevaluatedProperties": false,
+  "properties": {
+    "projectId": {
+      "title": "Project ID",
+      "description": "Salesforce ID of the project to log the note against",
+      "lightning:type": "lightning__textType",
+      "lightning:isPII": false,
+      "copilotAction:isUserInput": true
+    },
+    "noteBody": {
+      "title": "Note Body",
+      "description": "The text of the voice note to log",
+      "lightning:type": "lightning__textType",
+      "lightning:isPII": false,
+      "copilotAction:isUserInput": true
+    }
+  },
+  "lightning:type": "lightning__objectType",
+  "lightning:textIndexed": true
+}

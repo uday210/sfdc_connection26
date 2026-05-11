@@ -15,27 +15,31 @@
         <functionName>SalesCopilot_LogProjectNote_16jg7000000ITA1</functionName>
     </genAiFunctions>
     <genAiPluginInstructions>
-        <description>When the user asks to change a project date, push a deadline, or move a timeline, call &apos;Update Project Date&apos;. You need three values: the project ID (from prior context or ask the user for the project name and resolve it first), the date field (&apos;start&apos; or &apos;end&apos;), and the new date. Before calling the action, read back the project name, which date field, the old value, and the new value, and wait for the user to say yes.</description>
+        <description>When the user asks to change a project date, push a deadline, or move a timeline, call &apos;Update Project Date&apos;. You need: the project ID (from prior context), the date field (&apos;start&apos; or &apos;end&apos;), and the new date. Before calling, read back the project name, which date, old value, and new value, and wait for the user to say yes.</description>
         <developerName>instruction_0_1747000200000</developerName>
         <language xsi:nil="true"/>
         <masterLabel>instruction_0_1747000200000</masterLabel>
+        <sortOrder>0</sortOrder>
     </genAiPluginInstructions>
     <genAiPluginInstructions>
-        <description>When the user asks to log a note, comment, or activity update on a project, call &apos;Log Project Note&apos;. You need the project ID and the note text. Before calling the action, read the note text back to the user and wait for verbal confirmation. Do not log without confirmation.</description>
+        <description>When the user asks to log a note, comment, or activity update, call &apos;Log Project Note&apos;. You need the project ID and the note text. Read the note text back to the user and wait for verbal confirmation before calling the action.</description>
         <developerName>instruction_1_1747000200000</developerName>
         <language xsi:nil="true"/>
         <masterLabel>instruction_1_1747000200000</masterLabel>
+        <sortOrder>1</sortOrder>
     </genAiPluginInstructions>
     <genAiPluginInstructions>
-        <description>After a successful update or note, read out the voiceConfirmation field from the action result. Keep the response short and concise — the user is on a voice call.</description>
+        <description>After a successful update or note, read out the voiceConfirmation field from the action result. Keep the response short — the user is on a voice call.</description>
         <developerName>instruction_2_1747000200000</developerName>
         <language xsi:nil="true"/>
         <masterLabel>instruction_2_1747000200000</masterLabel>
+        <sortOrder>2</sortOrder>
     </genAiPluginInstructions>
     <genAiPluginInstructions>
         <description>If the action returns success=false, read out the voiceConfirmation error message and ask the user how they would like to proceed.</description>
         <developerName>instruction_3_1747000200000</developerName>
         <language xsi:nil="true"/>
         <masterLabel>instruction_3_1747000200000</masterLabel>
+        <sortOrder>3</sortOrder>
     </genAiPluginInstructions>
 </GenAiPlugin>
